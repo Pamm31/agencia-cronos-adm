@@ -9,7 +9,10 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
   <link rel="stylesheet" href="css/estilo.css" />
+  <link rel="stylesheet" href="css/modal.css">
   <link rel="shortcut icon" href="imagens/favicon.png" type="image/x-icon" />
+  <script src="./script.js"></script>
+
 </head>
 
 <body>
@@ -28,7 +31,7 @@
 
 
           <h3>Serviços</h3>
-          <button class="btn btn-primary">Adicionar novo</button>
+          <button class="btn btn-primary" id="cadastro_curso">Adicionar novo</button>
           <table class="table my-5">
             <thead>
               <tr>
@@ -38,6 +41,33 @@
                 <td>Ações</td>
               </tr>
             </thead>
+            <!-- Janela ADD -->
+            <div id="container"><div>
+        
+        
+              <div class="modal" id="modal">
+                  <div class="modal-content">
+                      <header class="modal-header">
+                          <h2>Novo Curso</h2>
+                      </header>
+                       
+                      <form id="form" class="modal-form">
+                        <input type="number" id="novo_id" class="modal-field" placeholder="ID" required>
+                        <input type="text" id="novo_titulo" class="modal-field" placeholder="Título" required>
+                          <input type="text" id="novo_img" data-index="new" required class="modal-field" placeholder="Imagem">
+                          <div id="modal-textarea">
+                              <textarea name="" id="novo_descricao" cols="30" rows="8" placeholder="Descrição do Curso" required></textarea>
+                          </div>
+                                            
+                      </form>
+                      <footer class="modal-footer">
+                          <button id="salvar">Salvar</button>
+                          <button id="salvar-edicao">Editar</button>
+                          <button id="cancelar">Cancelar</button>
+                      </footer>
+                  </div>
+              </div>
+
             <tbody>
               <tr>
                 <td>Desenvolvimento Web</td>
