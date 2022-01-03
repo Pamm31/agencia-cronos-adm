@@ -1,49 +1,32 @@
-//////////////////////
-/// Acessando DOM ///
-////////////////////
 let btnCadastroCurso = document.querySelector('#cadastro_curso');
 let btnSalvarCurso = document.querySelector('#salvar');
-// pegamos todos os elementos com a classe btn-editar
-let btnSalvarEdicaoCurso = document.getElementsByClassName("btn-editar");
+let btnSalvarEdicaoCurso = document.querySelector('#salvar-edicao');
 let btnCancelarCadastroCurso = document.querySelector('#cancelar');
-let btnFechar = document.querySelector('#fechar');
 
+var dadosCursos =[];
 
-////////////////////////
-/// Lista de cursos ///
-//////////////////////
-var dadosCursos =[
-    {'imagem': 'novoCursoImagem',
-    'titulo': 'novoCursoTitulo',
-    'id': 'novoCursoId',
-    'professor': 'novoCursoProfessor',
-    'descricao' : 'novoCursoDescricao',
-    'aulas': 'novoCursoAulas'}
-];
-
-
-////////////////
-/// FUNÇÕES ///
-//////////////
-
-
-// Funções: Criar, editar, Deletar
 const cadastrarCurso = () => {
     btnSalvarCurso.style.display = 'initial';
-    // btnSalvarEdicaoCurso.style.display ='none';
+    btnSalvarEdicaoCurso.style.display = 'none';
     document.querySelector('.modal').classList.add('active');
+    }
+
+const salvarCurso = () => {
+    const curso = {
+        nome: document.getElementById('titulo').value,
+        img : document.getElementById('imagem'),
+        descricao: document.getElementById('descricao').value
+    }
+    createCurso(novoCurso)
+    limparImput()
+    closeModal()
 }
 
-const criarCurso = () => {  
-    /////////////////////////
-    /// Acessando inputs ///
-    ///////////////////////
-    let novoCursoImagem = document.getElementById('novo_img').value;
-    let novoCursoTitulo = document.getElementById('novo_titulo').value;
-    let novoCursoId = document.getElementById('novo_id').value;
-    let novoCursoProfessor = document.getElementById('novo_professor').value;
-    let novoCursoDescricao = document.getElementById('novo_descricao').value;
-    let novoCursoAulas = document.getElementById('novo_aulas').value;
+const criarCurso = (curso) => {  
+    let novoCursoTitulo = document.getElementById('tt_nome').value;
+    let novoCursoImagem = document.getElementById('txt_imagem').value;
+    let novoCursoId = document.getElementById('id_curso').value;
+    let novoCursoDescricao = document.getElementById('txt_descricao').value;
     
     if(novoCursoId == ""){
         window.alert('Digite um ID válido!')
@@ -56,45 +39,46 @@ const criarCurso = () => {
         }        
     }
 
-    dadosCursos.push({
-        'imagem': novoCursoImagem,
+    let novoCurso = {
         'titulo': novoCursoTitulo,
+        'imagem': novoCursoImagem,
         'id': novoCursoId,
-        'professor': novoCursoProfessor,
-        'descricao' : novoCursoDescricao,
-        'aulas': novoCursoAulas
-    });
+        'descricao': novoCursoDescricao,
+    };
 
-    const novoCurso = document.createElement('div')
+    dadosCursos.push(novoCurso);
+
+    criarLinhaTabela(novoCurso);
+
+    localStorage.setItem('dadosCursos',JSON.stringify(dadosCursos));
+
+}
+
+const criarLinhaTabela = (curso) => {
+    const novoCurso = document.createElement('tr')
     novoCurso.innerHTML = `
-        <img src="${novoCursoImagem = '../imagens/teste.png'}" class="curso_imagem" alt="imagem curso">                
-        <h2 class="curso_titulo">${novoCursoTitulo}</h2>
-        <span class="curso_id">ID: ${novoCursoId}</span>
-        <span class="curso_professor">Professor: ${novoCursoProfessor}</span>
-        <p class="curso_descricao">${novoCursoDescricao}</p>
-        <p class="curso_descricao">${novoCursoAulas}</p>
-        <div class="curso_botoes_editar_deletar">
-            <button class="curso_botao_editar" onclick="abrirEdicaoCurso(${novoCursoId})">Editar</button>
-            <button class="curso_botao_deletar" onclick="deletarCurso(${novoCursoId})">Deletar</button>
-        </div>`;
+        <td>${curso.titulo}</td>                
+        <td><img src="${curso.imagem = 'imagens/ilustra-web.png'}" class="img-fluid"/></td>
+        <td>${curso.descricao}</td>
+        <td>
+            <button class="btn btn-secondary m-l" onclick="abrirEdicaoCurso (${curso.id})">editar</button>
+            <button class="btn btn-danger m-l" onclick="deletarCurso (${curso.id})">excluir</button>
+        </td>`;
 
-    novoCurso.classList.add(`container_curso`);
-    novoCurso.setAttribute('id', `${novoCursoId}`);
-    document.querySelector('#container').appendChild(novoCurso);    
-    document.querySelector('#form').reset();
+        novoCurso.setAttribute('id', `${curso.id}`);
+        document.querySelector('#tabela1').appendChild(novoCurso);    
+        document.querySelector('#form').reset();
 }
-function salvarCurso() {
-    let 
-        titulo = document.getElementById("titulo").value,
-        img = document.getElementById("img").value,
-        id = document.getElementById("id").value,
-        descricao = document.getElementById("descricao").value;
 
-        
-        document.getElementById('corpo').innerHTML = salvarCurso(titulo, img, id, descricao)    
-        fecharModal();
-        document.querySelector('#form').reset();   
+const carregarPagina = () => {
+    if (localStorage.getItem('dadosCursos') != null){
+        let listaCursos = JSON.parse(localStorage.getItem('dadosCursos'));
+        for (let i = 0; i < listaCursos.length; i++) {
+            criarLinhaTabela(listaCursos[i]);
+        }
+    }
 }
+carregarPagina ();
 
 const cancelarCriacaoCurso = () => {
     limparInputsCriacao()
@@ -107,28 +91,25 @@ const limparInputsCriacao = () => {
 
 const abrirEdicaoCurso = (id) => {
     document.querySelector('.modal').classList.add('active');
-
     btnSalvarCurso.style.display = 'none';
-    // btnSalvarEdicaoCurso.style.display ='initial';
+    btnSalvarEdicaoCurso.style.display ='initial';
 
     for(let i = 0; i < dadosCursos.length; i++) {        
         if (dadosCursos[i]['id'] == id){
-            document.getElementById('novo_img').value = dadosCursos[i]['image'];
-            document.getElementById('novo_titulo').value = dadosCursos[i]['titulo'];
-            document.getElementById('novo_id').value = dadosCursos[i]['id'];
-            document.getElementById('novo_professor').value = dadosCursos[i]['professor'];
-            document.getElementById('novo_descricao').value = dadosCursos[i]['descricao'];
-            document.getElementById('novo_aulas').value = dadosCursos[i]['aulas'];
+            document.getElementById('txt_nome').value = dadosCursos[i]['titulo'];
+            document.getElementById('txt_imagem').value = dadosCursos[i]['imagem'];
+            document.getElementById('id_curso').value = dadosCursos[i]['id'];
+            document.getElementById('txt_descricao').value = dadosCursos[i]['descricao'];
         }        
     }   
 }
 
 const atualizarCurso = () => {  
-    let atualizaCurso = document.getElementById('novo_id').value
-
+    let atualizaCurso = document.getElementById('id_curso').value
     abrirEdicaoCurso();    
     deletarCurso(atualizaCurso);
     criarCurso();
+    cancelarCriacaoCurso();
 }
 
 const deletarCurso = (id) => {    
@@ -140,19 +121,10 @@ const deletarCurso = (id) => {
     }
 };
 
-
-////////////////
-/// EVENTOS ///
-//////////////
 btnCadastroCurso.addEventListener('click', cadastrarCurso);
 btnSalvarCurso.addEventListener('click', criarCurso);
 btnCancelarCadastroCurso.addEventListener('click', cancelarCriacaoCurso);
-btnFechar.addEventListener('click', cancelarCriacaoCurso);
-
-// for para pegar todos os elementos com a classe btn-editar e adicionar uma função no onclick
-for (let i = 0; i < btnSalvarEdicaoCurso.length; i++) {
-        btnSalvarEdicaoCurso[i].addEventListener('click', atualizarCurso);
-}
+btnSalvarEdicaoCurso.addEventListener('click', atualizarCurso);
 
 
 

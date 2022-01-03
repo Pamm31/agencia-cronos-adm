@@ -28,8 +28,6 @@
     <div class="container">
       <div class="row">
         <div class="col">
-
-
           <h3>Serviços</h3>
           <button class="btn btn-primary" id="cadastro_curso">Adicionar novo</button>
           <table class="table my-5">
@@ -41,13 +39,13 @@
                 <td>Ações</td>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tabela1">
               <tr>
                 <td>Desenvolvimento Web</td>
                 <td><img src="imagens/ilustra-web.png" class="img-fluid" /></td>
                 <td>Consequatur debitis ipsa numquam illum placeat quod deleniti.</td>
                 <td>
-                  <button class="btn btn-secondary m-1">editar</button>
+                  <button class="btn btn-secondary m-1 btn-editar">editar</button>
                   <button class="btn btn-danger m-1">excluir</button>
                 </td>
               </tr>
@@ -56,7 +54,7 @@
                 <td><img src="imagens/ilustra-marketing.png" class="img-fluid" /></td>
                 <td>Consequatur debitis ipsa numquam illum placeat quod deleniti.</td>
                 <td>
-                  <button class="btn btn-secondary m-1">editar</button>
+                  <button class="btn btn-secondary m-1 btn-editar">editar</button>
                   <button class="btn btn-danger m-1">excluir</button>
                 </td>
               </tr>
@@ -65,7 +63,7 @@
                 <td><img src="imagens/ilustra-ux.png" class="img-fluid" /></td>
                 <td>Consequatur debitis ipsa numquam illum placeat quod deleniti.</td>
                 <td>
-                  <button class="btn btn-secondary m-1">editar</button>
+                  <button class="btn btn-secondary m-1 btn-editar">editar</button>
                   <button class="btn btn-danger m-1">excluir</button>
                 </td>
               </tr>
@@ -79,22 +77,19 @@
                 <header class="modal-header">
                     <h2>Novo Curso</h2>
                 </header>
-                <button type="button" class="close" id="fechar" data-dismiss="modal" aria-label="Fechar">
-                  <span aria-hidden="true">&times;</span>
-                </button>
                  
                 <form id="form" class="modal-form">
-                  <input type="text" id="novo_titulo" class="modal-field" placeholder="Título" required>
-                    <input type="text" id="novo_img" data-index="new" required class="modal-field" placeholder="Imagem">
-                    <input type="number" id="novo_id" class="modal-field" placeholder="ID" required>
+                  <input type="text" id="txt_nome" class="modal-field" placeholder="Nome" required>
+                  <input type="text" id="tex_imagem" data-index="new" required class="modal-field" placeholder="Imagem">
+                  <input type="number" id="id_curso" class="modal-field" placeholder="ID" required>
                     <div id="modal-textarea">
-                        <textarea name="" id="novo_descricao" cols="30" rows="8" placeholder="Descrição do Curso" required></textarea>
+                        <textarea name="" id="txt_descricao" cols="30" rows="8" placeholder="Descrição do Curso" required></textarea>
                     </div>
-                                      
                 </form>
                 <footer class="modal-footer">
-                    <button id="salvar">Salvar</button>
-                    <button id="cancelar">Cancelar</button>
+                    <button class="btn btn-success" id="salvar">Salvar</button>
+                    <button class="btn btn-success" id="salvar-edicao">Editar</button>
+                    <button class="btn btn-danger" id="cancelar">Cancelar</button>
                 </footer>
             </div>
     </div>
