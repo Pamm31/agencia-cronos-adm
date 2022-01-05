@@ -12,7 +12,7 @@ const cadastrarCurso = () => {
     }
 
 const criarCurso = (curso) => {  
-    let novoCursoTitulo = document.getElementById('tt_nome').value;
+    let novoCursoTitulo = document.getElementById('txt_nome').value;
     let novoCursoImagem = document.getElementById('txt_imagem').value;
     let novoCursoId = document.getElementById('id_curso').value;
     let novoCursoDescricao = document.getElementById('txt_descricao').value;
@@ -76,8 +76,8 @@ const salvarCurso = () => {
         descricao: document.getElementById('descricao').value,
     }
    createCurso(novoCurso)
-    limparImput()
-    closeModal()
+   limparImput()
+   closeModal()
 }
 
 
