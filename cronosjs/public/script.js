@@ -11,17 +11,6 @@ const cadastrarCurso = () => {
     document.querySelector('.modal').classList.add('active');
     }
 
-const salvarCurso = () => {
-    const curso = {
-        nome: document.getElementById('titulo').value,
-        img : document.getElementById('imagem'),
-        descricao: document.getElementById('descricao').value,
-    }
-    createCurso(novoCurso)
-    limparImput()
-    closeModal()
-}
-
 const criarCurso = (curso) => {  
     let novoCursoTitulo = document.getElementById('tt_nome').value;
     let novoCursoImagem = document.getElementById('txt_imagem').value;
@@ -80,6 +69,18 @@ const carregarPagina = () => {
 }
 carregarPagina ();
 
+const salvarCurso = () => {
+    const curso = {
+        nome: document.getElementById('titulo').value,
+        img : document.getElementById('imagem'),
+        descricao: document.getElementById('descricao').value,
+    }
+   createCurso(novoCurso)
+    limparImput()
+    closeModal()
+}
+
+
 const cancelarCriacaoCurso = () => {
     limparInputsCriacao()
     document.querySelector('.modal').classList.remove('active');
@@ -113,14 +114,12 @@ const atualizarCurso = () => {
 }
 
 const deletarCurso = (id) => {   
-    const response = confirm('Tem certeza que deseja excluir o serviço ${curso.titulo}?')
-    if (response) {
-        document.getElementById(id).remove();
-        for(let i = 0; i < dadosCursos.length; i++) {        
-            if (dadosCursos[i]['id'] === id){
+    document.getElementById(id).remove();
+
+    for(let i = 0; i < dadosCursos.length; i++) {        
+        if (dadosCursos[i]['id'] === id){
                 dadosCursos.splice(i, 1);
-            }        
-        }
+        }        
     }
 };
 
