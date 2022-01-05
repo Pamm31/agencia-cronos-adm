@@ -112,12 +112,14 @@ const atualizarCurso = () => {
     cancelarCriacaoCurso();
 }
 
-const deletarCurso = (id) => {    
-    document.getElementById(id).remove();
-    for(let i = 0; i < dadosCursos.length; i++) {        
-        if (dadosCursos[i]['id'] == id){
-            dadosCursos.splice(i, 1);
-        }        
+const deletarCurso = (id) => {   
+    if(confirm('Tem certeza que deseja excluir este serviço?')) {
+        document.getElementById(id).remove();
+        for(let i = 0; i < dadosCursos.length; i++) {        
+            if (dadosCursos[i]['id'] == id){
+                dadosCursos.splice(i, 1);
+            }        
+        }
     }
 };
 
