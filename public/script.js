@@ -59,15 +59,6 @@ const criarLinhaTabela = (curso) => {
         document.querySelector('#form').reset();
 }
 
-const carregarPagina = () => {
-    if (localStorage.getItem('dadosCursos') != null){
-        let listaCursos = JSON.parse(localStorage.getItem('dadosCursos'));
-        for (let i = 0; i < listaCursos.length; i++) {
-            criarLinhaTabela(listaCursos[i]);
-        }
-    }
-}
-carregarPagina ();
 
 const salvarCurso = () => {
     const curso = {
@@ -92,11 +83,12 @@ const limparInputsCriacao = () => {
 
 const abrirEdicaoCurso = (id) => {
     document.querySelector('.modal').classList.add('active');
+
     btnSalvarCurso.style.display = 'none';
     btnSalvarEdicaoCurso.style.display ='initial';
 
     for(let i = 0; i < dadosCursos.length; i++) {        
-        if (dadosCursos[i]['id'] === id){
+        if (dadosCursos[i]['id'] == id){
             document.getElementById('txt_nome').value = dadosCursos[i]['titulo'];
             document.getElementById('txt_imagem').value = dadosCursos[i]['imagem'];
             document.getElementById('id_curso').value = dadosCursos[i]['id'];
@@ -107,20 +99,18 @@ const abrirEdicaoCurso = (id) => {
 
 const atualizarCurso = () => {  
     let atualizaCurso = document.getElementById('id_curso').value
+
     abrirEdicaoCurso();    
     deletarCurso(atualizaCurso);
     criarCurso();
     cancelarCriacaoCurso();
 }
-
 const deletarCurso = (id) => {    
-    if (confirm('Tem certeza que deseja excluir este serviço?')) {
     document.getElementById(id).remove();
     for(let i = 0; i < dadosCursos.length; i++) {        
         if (dadosCursos[i]['id'] == id){
             dadosCursos.splice(i, 1);
         }        
-    }
     }
 };
 
